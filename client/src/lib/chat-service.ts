@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { type Message } from '@/types/chat';
 
-const API_URL = import.meta.env.VITE_API_URL || '';
+// Get API URL from environment or use relative path for deployment
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? (import.meta.env.VITE_API_URL || '') 
+  : '';
 
 // Function to fetch all messages
 export async function fetchMessages(): Promise<Message[]> {
