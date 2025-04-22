@@ -30,7 +30,10 @@ export default function ChatHeader({ onClearChat }: ChatHeaderProps) {
           alt="Groq Logo" 
           className="w-8 h-8"
         />
-        <h1 className="text-xl font-semibold">Groq Chat</h1>
+        <div>
+          <h1 className="text-xl font-semibold">NutriGenAI</h1>
+          <p className="text-xs text-muted-foreground">Asistente de Nutrigenómica</p>
+        </div>
       </div>
       
       <div className="flex items-center space-x-2">
@@ -42,21 +45,21 @@ export default function ChatHeader({ onClearChat }: ChatHeaderProps) {
               className="border-border"
             >
               <Trash2 className={isMobile ? "h-4 w-4" : "h-4 w-4 mr-2"} />
-              {!isMobile && "Clear Chat"}
+              {!isMobile && "Limpiar Chat"}
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Clear chat history?</AlertDialogTitle>
+              <AlertDialogTitle>¿Limpiar historial de chat?</AlertDialogTitle>
               <AlertDialogDescription>
-                This will remove all messages from the current conversation.
-                This action cannot be undone.
+                Esta acción eliminará todos los mensajes de la conversación actual.
+                Esta acción no se puede deshacer.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
               <AlertDialogAction onClick={onClearChat}>
-                Clear
+                Limpiar
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -70,21 +73,24 @@ export default function ChatHeader({ onClearChat }: ChatHeaderProps) {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>About Groq Chat</AlertDialogTitle>
+              <AlertDialogTitle>Acerca de NutriGenAI</AlertDialogTitle>
               <AlertDialogDescription>
                 <p className="mb-2">
-                  This is a simple chat interface powered by Groq's LLM API.
+                  NutriGenAI es un asistente especializado en nutrigenómica, suplementos nutricionales y alimentos funcionales.
                 </p>
                 <p className="mb-2">
-                  Groq provides ultra-fast inference for large language models.
+                  Proporciona información basada en la ciencia sobre cómo los alimentos interactúan con tu genética y recomendaciones personalizadas.
+                </p>
+                <p className="mb-2">
+                  Recuerda: Este asistente proporciona información general y no sustituye el consejo médico profesional.
                 </p>
                 <p className="text-xs text-muted-foreground mt-4">
-                  Built with React, Express and Groq API
+                  Desarrollado con Groq y tecnologías avanzadas de IA
                 </p>
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogAction>Close</AlertDialogAction>
+              <AlertDialogAction>Cerrar</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
