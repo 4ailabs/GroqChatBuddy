@@ -1,15 +1,10 @@
 import axios from 'axios';
 import { type Message } from '@/types/chat';
 
-// Get API URL from environment or use relative path for deployment
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? (import.meta.env.VITE_API_URL || '') 
-  : '';
-
 // Function to fetch all messages
 export async function fetchMessages(): Promise<Message[]> {
   try {
-    const response = await axios.get(`${API_URL}/api/messages`);
+    const response = await axios.get('/api/messages');
     return response.data;
   } catch (error) {
     console.error('Error fetching messages:', error);
@@ -36,7 +31,7 @@ export async function sendMessage(content: string): Promise<Message> {
     });
     
     // Send to server
-    const response = await axios.post(`${API_URL}/api/chat`, {
+    const response = await axios.post('/api/chat', {
       messages: formattedMessages
     });
     
@@ -50,7 +45,7 @@ export async function sendMessage(content: string): Promise<Message> {
 // Function to clear chat history
 export async function clearMessages(): Promise<void> {
   try {
-    await axios.delete(`${API_URL}/api/messages`);
+    await axios.delete('/api/messages');
   } catch (error) {
     console.error('Error clearing messages:', error);
     throw error;
