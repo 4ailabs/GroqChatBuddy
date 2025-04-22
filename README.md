@@ -1,20 +1,21 @@
-# Chatbot con Groq API
+# NutriGenAI - Asistente de Nutrigenómica
 
-Un chatbot implementado con React y Express que utiliza la API de Groq para generar respuestas inteligentes.
+Un chatbot especializado en nutrigenómica, suplementos nutricionales, vitaminas y alimentos funcionales, implementado con React y la API de Groq para generar respuestas basadas en evidencia científica.
 
 ## Características
 
 - Interfaz de chat moderna y responsiva
-- Integración con la API de Groq para respuestas IA
-- Backend con Express listo para despliegue en Vercel
-- Frontend fácilmente integrable con Framer Desktop
-- Soporte para múltiples idiomas
+- Especialización en nutrigenómica y medicina nutricional personalizada
+- Información sobre suplementos basada en evidencia científica
+- Recomendaciones sobre alimentos funcionales
+- Explicaciones sobre interacciones entre nutrientes y genética
+- Desplegable en Vercel con mínima configuración
 
 ## Tecnologías utilizadas
 
 - **Frontend**: React, TailwindCSS, shadcn/ui
-- **Backend**: Express, Node.js
-- **API**: Groq API para IA generativa
+- **Backend**: Vercel Serverless Functions
+- **API**: Groq LLM API (usando llama3-70b)
 - **Despliegue**: Configurado para Vercel
 
 ## Configuración para desarrollo
@@ -28,15 +29,19 @@ Un chatbot implementado con React y Express que utiliza la API de Groq para gene
 
 1. Despliega el repositorio en Vercel
 2. Configura la variable de entorno `GROQ_API_KEY` en la configuración de Vercel
-3. El backend estará disponible en tu URL de Vercel
+3. El chatbot estará disponible en tu URL de Vercel
 
-### Solución de problemas en Vercel
+## Especialización en Nutrigenómica
 
-Si encuentras problemas al desplegar en Vercel, asegúrate de:
+Este chatbot ha sido especializado para proporcionar información sobre:
 
-1. Verificar que la variable de entorno `GROQ_API_KEY` está correctamente configurada
-2. Usar Node.js 18.x o superior en la configuración de Vercel
-3. Revisar los logs de despliegue para detectar errores específicos
+- Cómo los alimentos afectan la expresión genética (nutrigenómica)
+- Suplementos nutricionales y su eficacia según estudios científicos
+- Alimentos funcionales y sus beneficios para la salud
+- Recomendaciones personalizadas basadas en perfiles genéticos
+- Interacciones entre nutrientes, medicamentos y genética
+- Vitaminas, minerales y su impacto en las vías metabólicas
+- Últimos avances en nutrición personalizada y medicina de precisión
 
 ## Estructura del proyecto
 
@@ -49,25 +54,18 @@ Si encuentras problemas al desplegar en Vercel, asegúrate de:
 │   │   ├── lib/ - Utilidades y servicios
 │   │   ├── pages/ - Páginas principales
 │   │   └── types/ - Definiciones de tipos TypeScript
-├── server/ - Backend Express
-│   ├── index.ts - Punto de entrada del servidor
-│   ├── routes.ts - Definición de rutas API
-│   ├── storage.ts - Implementación de almacenamiento
-│   └── vite.ts - Configuración de Vite para desarrollo
-└── shared/ - Código compartido entre cliente y servidor
-    └── schema.ts - Esquema de datos y validación
 ```
 
-## Integración con Framer Desktop
+## Uso en consultas de nutrición
 
-Puedes integrar este chatbot en tu sitio de Framer Desktop de varias maneras:
+NutriGenAI puede ser utilizado por nutricionistas y profesionales de la salud como herramienta de apoyo para:
 
-1. **Usando un iframe**: Inserta la URL de tu aplicación desplegada en un componente iframe de Framer
-2. **Usando la API backend**: Configura el frontend para que se comunique con la API desplegada en Vercel
+1. Investigar las últimas tendencias en nutrición personalizada
+2. Obtener información sobre interacciones entre suplementos
+3. Explorar opciones de alimentos funcionales para condiciones específicas
+4. Entender mejor la relación entre genética y nutrición
 
-## Contribuciones
-
-Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cambios importantes antes de enviar un pull request.
+**Nota importante**: Este chatbot proporciona información con fines educativos. No sustituye el consejo médico o nutricional profesional.
 
 ## Licencia
 
