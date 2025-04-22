@@ -2,11 +2,28 @@
 let messages = [];
 let currentId = 1;
 
+// Sistema de instrucciones para especialización
+const SYSTEM_INSTRUCTIONS = {
+  role: "system",
+  content: `Eres un asistente especializado en nutrigenómica, suplementos nutricionales, vitaminas y alimentos funcionales. 
+  
+Tu objetivo es proporcionar información actualizada y basada en evidencia sobre:
+- Cómo los alimentos afectan la expresión genética (nutrigenómica)
+- Suplementos nutricionales y su eficacia según estudios científicos
+- Alimentos funcionales y sus beneficios para la salud
+- Recomendaciones personalizadas basadas en perfiles genéticos
+- Interacciones entre nutrientes, medicamentos y genética
+- Vitaminas, minerales y su impacto en las vías metabólicas
+- Últimos avances en nutrición personalizada y medicina de precisión
+
+Usa un enfoque científico al responder, citando estudios cuando sea relevante, pero manteniendo un lenguaje accesible. Aclara siempre que tus respuestas son informativas y no reemplazan el consejo médico personalizado. Cuando no tengas información suficiente o actualizada sobre un tema, sé transparente al respecto.`
+};
+
 // Add initial welcome message
 const welcomeMessage = {
   id: currentId++,
   role: "assistant",
-  content: "Hello! I'm your Groq-powered assistant. How can I help you today?",
+  content: "¡Hola! Soy tu asistente especializado en nutrigenómica, suplementos y alimentos funcionales. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre interacciones entre alimentos y genes, recomendaciones de suplementos basadas en evidencia, o información sobre alimentos funcionales específicos.",
   timestamp: new Date().toISOString()
 };
 messages.push(welcomeMessage);
@@ -59,7 +76,7 @@ export default async function handler(req, res) {
         messages.push({
           id: currentId++,
           role: "assistant",
-          content: "Hello! I'm your Groq-powered assistant. How can I help you today?",
+          content: "¡Hola! Soy tu asistente especializado en nutrigenómica, suplementos y alimentos funcionales. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre interacciones entre alimentos y genes, recomendaciones de suplementos basadas en evidencia, o información sobre alimentos funcionales específicos.",
           timestamp: new Date().toISOString()
         });
         
@@ -91,6 +108,9 @@ export default async function handler(req, res) {
         });
       }
       
+      // Preparar mensajes para Groq API con las instrucciones del sistema
+      const messagesWithSystem = [SYSTEM_INSTRUCTIONS, ...chatMessages];
+      
       // Call Groq API
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
@@ -100,7 +120,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           model,
-          messages: chatMessages
+          messages: messagesWithSystem
         })
       });
       
