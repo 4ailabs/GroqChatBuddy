@@ -1,4 +1,39 @@
-import { storage } from '../server/storage.js';
+// Serverless function for Vercel
+// In-memory storage (will reset on cold starts)
+let messages = [];
+let currentId = 1;
+
+// Helper functions for storage
+async function getMessages() {
+  return [...messages].sort((a, b) => a.id - b.id);
+}
+
+async function addMessage(message) {
+  const id = currentId++;
+  const timestamp = new Date();
+  const newMessage = { ...message, id, timestamp };
+  messages.push(newMessage);
+  return newMessage;
+}
+
+async function clearMessages() {
+  messages = [];
+  currentId = 1;
+  await addMessage({
+    role: "assistant",
+    content: "Hello! I'm your Groq-powered assistant. How can I help you today?"
+  });
+}
+
+// Initialize with welcome message if empty
+async function initializeIfEmpty() {
+  if (messages.length === 0) {
+    await addMessage({
+      role: "assistant",
+      content: "Hello! I'm your Groq-powered assistant. How can I help you today?"
+    });
+  }
+}
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -12,10 +47,12 @@ export default async function handler(req, res) {
   }
 
   try {
+    await initializeIfEmpty();
+    
     // GET request - fetch all messages
     if (req.method === 'GET') {
-      const messages = await storage.getMessages();
-      return res.status(200).json(messages);
+      const allMessages = await getMessages();
+      return res.status(200).json(allMessages);
     }
     
     // POST request - add a new message
@@ -28,13 +65,13 @@ export default async function handler(req, res) {
         });
       }
       
-      const message = await storage.addMessage({ role, content });
+      const message = await addMessage({ role, content });
       return res.status(201).json(message);
     }
     
     // DELETE request - clear all messages
     if (req.method === 'DELETE') {
-      await storage.clearMessages();
+      await clearMessages();
       return res.status(200).json({ message: "Messages cleared" });
     }
     
